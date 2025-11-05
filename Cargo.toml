@@ -1,7 +1,13 @@
 [package]
 name = "dinosay"
 version = "0.1.0"
+authors = ["Joshua Liddell <joshua.liddell21@gmail.com>"]
 edition = "2024"
+description = "A friendly dinosaur to speak your text"
+license = "MIT"
+repository = "https://github.com/josh-liddell/dinosay"
+readme = "README.md"
+keywords = ["cli", "ascii-art"]
+categories = ["command-line-utilities"]
 
 [dependencies]
-clap = { version = "4.5.50", features = ["derive"] }

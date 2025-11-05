@@ -10,7 +10,7 @@ impl Dinosay for str {
         let border_lines = lines
             .iter()
             .map(|line| {
-                let mut spacer = String::new(); // can this be changed?
+                let mut spacer = String::new();
                 if line.len() < max {
                     spacer = " ".repeat(max - line.len());
                 }
