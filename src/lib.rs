@@ -1,7 +1,5 @@
-use std::fmt::Write;
-
 pub trait Dinosay {
-    fn dinosay(&self); //should I just make it a  default impl here?
+    fn dinosay(&self);
 }
 
 impl Dinosay for str {
@@ -32,29 +30,30 @@ impl Dinosay for str {
     }
 }
 
-// maybe rewrite this to get it to work a different way and use iterator
 fn get_lines(text: &str) -> Vec<String> {
     let mut lines = Vec::new();
-    let mut line = String::new();
-    let words: Vec<&str> = text.split_whitespace().collect();
+    let mut current_words = Vec::new();
+    let mut current_length = 0;
 
-    for word in words {
-        if line.len() == 0 {
-            write!(&mut line, "{word}").unwrap();
-            continue;
-        }
-        if line.len() + (word.len() + 1) <= 41 {
-            // append the word to the line
-            write!(&mut line, " {word}").unwrap();
+    text.split_whitespace().for_each(|word| {
+        let len = if current_words.is_empty() {
+            word.len()
         } else {
-            // push the line and reset the line, with the word
-            lines.push(line);
-            line = word.to_string();
-        }
-    }
+            current_length + word.len() + 1
+        };
 
-    if !line.is_empty() {
-        lines.push(line);
+        if len <= 41 {
+            current_words.push(word);
+            current_length = len;
+        } else {
+            lines.push(current_words.join(" "));
+            current_words = vec![word];
+            current_length = word.len();
+        }
+    });
+
+    if !current_words.is_empty() {
+        lines.push(current_words.join(" "));
     }
 
     lines
